@@ -192,7 +192,7 @@ class Cache
     {
         $segments = explode('/', ltrim($request->getPathInfo(), '/'));
 
-        $file = $this->aliasFilename(array_pop($segments)).'.html';
+        $file = $this->aliasFilename(array_pop($segments), $request->getQueryString()).'.html';
 
         return [$this->getCachePath(implode('/', $segments)), $file];
     }
@@ -203,9 +203,9 @@ class Cache
      * @param  string  $filename
      * @return string
      */
-    protected function aliasFilename($filename)
+    protected function aliasFilename($filename, $querystring)
     {
-        return $filename ?: 'pc__index__pc';
+        return $filename."_".$querystring;
     }
 
     /**
